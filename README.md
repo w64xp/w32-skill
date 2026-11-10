@@ -45,7 +45,7 @@ Or just describe what you want, for example "create a skill" or "review this ski
 ## Test locally
 
 ```
-/plugin marketplace add ./W32-SKILL
+/plugin marketplace add ./w32-skill
 /plugin install w32-skill-tools@w32-skill
 ```
 
