@@ -5,7 +5,7 @@ A Claude Code plugin marketplace for building and reviewing skills.
 ## Install
 
 ```
-/plugin marketplace add w64xp/W32-SKILL
+/plugin marketplace add w64xp/w32-skill
 /plugin install w32-skill-tools@w32-skill
 ```
 
