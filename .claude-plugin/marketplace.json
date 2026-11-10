@@ -1,0 +1,20 @@
+{
+  "name": "w32-skill",
+  "owner": {
+    "name": "w64xp"
+  },
+  "metadata": {
+    "description": "Claude skills for building and reviewing other skills",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "w32-skill-tools",
+      "source": "./plugins/w32-skill-tools",
+      "description": "Build new skills step by step and review existing ones with tighter wording",
+      "version": "1.0.0",
+      "category": "productivity",
+      "keywords": ["skills", "authoring", "review"]
+    }
+  ]
+}
