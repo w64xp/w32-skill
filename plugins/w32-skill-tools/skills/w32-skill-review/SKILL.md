@@ -1,46 +1,43 @@
 ---
-name: "w32-skill-review"
-description: Rewrites another skill in tighter wording with identical behavior, lists every change by location, and suggests cuts or adjustments. Use when the user says "review this skill", "make this skill's wording tighter", "รีวิวสกิลนี้", "ปรับคำในสกิลนี้ให้สื่อความหมายกว่าเดิม". The exact 5-part output format is defined in this file; read it before answering.
+name: w32-skill-review
+description: Reviews an existing skill's overall design, workflow logic, and wordiness, then offers edits. Use when the user says "review this skill", "check my skill", "is this skill workflow ok", "trim the wordiness in this skill", "รีวิวสกิลนี้", "ตรวจสกิลให้หน่อย", "สกิลนี้เวิร์กโฟลว์โอเคไหม", "ช่วยตัดคำฟุ่มเฟือยในสกิล".
 ---
 
 # W32 Skill Review
 
-Keep the skill's behavior; change only wording, replacing long or vague phrases with fewer, precise ones. Report every change and suggest further cuts or adjustments.
+Review a skill's design and workflow, trim wordiness, and edit only after the user confirms.
 
 ## Inputs
-- Required: the skill to review (pasted SKILL.md text, an uploaded .skill / .md file, or the name of an installed skill; read its SKILL.md)
-- Optional: wording that must not be touched
-Ask for anything missing. Never guess.
+- Required: the skill to review, as an uploaded SKILL.md or text pasted in chat
+If missing, ask. Don't guess.
 
 ## Workflow
-1. Read the whole skill and note what it does, rule by rule.
-2. Find wording that costs more words than it earns: filler, hedging, restated rules, a phrase where one precise word would do.
-3. Mark what must stay verbatim: fixed output formats, exact trigger phrases, anything the user said not to touch.
-4. Rewrite each flagged spot in the fewest words that keep the exact meaning, preferring concrete words.
-5. Compare old and new; log each change with its location (section and line), confirming every rule remains with the same meaning.
-6. Note parts worth cutting or adjusting (too long, redundant, vague, explaining what an AI already knows).
-7. When the user has no more changes (suggestions applied or declined), ask whether to package the skill now.
+1. Get the skill (file or pasted text). If none, ask.
+2. Read the whole skill first, then summarize what it does.
+3. Check the workflow: logical order, duplicate steps, gaps, self-contradictions.
+4. Find wordy phrases and propose shorter ones with the same meaning.
+5. Send the report (structure below) and ask whether to apply the fixes.
+6. After the user confirms, edit only the confirmed points, one at a time, then list exactly what was changed. If the file is read-only, copy it to a working directory first.
 
 ## Output
-- Format: chat reply with these 5 parts, in order:
-  1. Summary: one line on how much was tightened, with word or line counts before and after
-  2. Changes: every edit as location: before -> after, plus a few words on why
-  3. New version: the full reworded SKILL.md in a code block
-  4. Behavior check: one line confirming behavior is unchanged, or naming what really changed
-  5. Suggestions: lettered parts (a, b, c, ...) worth cutting or adjusting, each with location, fix, reason, expected result; not applied in the new version. End by asking which letters to apply
-- Language: reply in the user's language; the reworded skill stays in its original language
-- Tone: direct, friendly, plain, no jargon
+- Format: report with these sections: Overview (1-2 sentences: what it does, makes sense or not), Workflow (order, duplicates, gaps), Fixable points (location, problem, proposed change), Wordiness (table: original -> shorter), Closing question (apply fixes?).
+- Language: reply in the user's language
+- Tone: casual, like a friend talking. Mild swearing is OK for emphasis or humor, never at the user; skip it if they seem unfamiliar with the style. Keep the table and edits clean.
+- Be direct, no flattery.
 
 ## Restrictions
-- Never drop a rule or step; reword it instead. Remove only exact duplicates.
-- Never change the meaning, scope, or fixed output format of the reviewed skill.
-- Never add rules or content the original did not have.
-- Apply a suggestion only after the user agrees.
-- If a new wording could shift meaning, keep the original and ask the user.
+- Never edit the file before the user confirms; review and propose only.
+- Never change the skill's meaning or intent when trimming; if unsure, ask first.
+- Never add features or rules the user did not ask for; edit only confirmed points from the report.
+- Never invent content missing from the skill; state what is missing.
 
-## Example (abridged)
-Summary: wording tightened, 120 -> 85 words, same rules.
-Changes: Workflow step 2: "Make sure that you always check whether the file exists before reading it" -> "Check the file exists before reading" (same rule, 9 fewer words).
-New version: the full reworded SKILL.md in a code block (omitted here).
-Behavior check: behavior unchanged.
-Suggestions: "Background" section (8 lines): explains what an AI already knows; consider cutting.
+## Example
+> **Overview:** Summarizes meetings. Clear goal, sensible scope.
+> **Fixable points:**
+> - Steps 3 and 5 do the same thing twice, pure waste -> merge into one step
+> **Wordiness:**
+> | Original | Shorter |
+> |---|---|
+> | "in order to" | "to" |
+>
+> **Apply these fixes?**
