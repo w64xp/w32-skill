@@ -1,3 +1,11 @@
 node_modules/
 .DS_Store
 skill/tools/mini-tools/
+._*
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+*.tmp
+*.bak
